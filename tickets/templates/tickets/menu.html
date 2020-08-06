@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+</head>
+<body>
+
+{% for ticket in menus %}
+    {% for link, title in ticket.items %}
+    <a href="/get_ticket/{{ link }}">{{ title }}</a>
+    {% endfor %}
+
+{% endfor %}
+
+</body>
+</html>
