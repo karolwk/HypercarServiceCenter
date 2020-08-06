@@ -7,14 +7,16 @@ oil_queue = deque()
 tires_queue = deque()
 diagnostic_queue = deque()
 tickets = {'change_oil': oil_queue, 'inflate_tires': tires_queue, 'diagnostic': diagnostic_queue}
+last = 0
 
 def delete_from_tickets():
     if len(oil_queue) > 0:
-        oil_queue.popleft()
+        return oil_queue.popleft()
     elif len(tires_queue) > 0:
-        tires_queue.popleft()
+        return tires_queue.popleft()
     elif len(diagnostic_queue) > 0:
-        diagnostic_queue.popleft()
+        return diagnostic_queue.popleft()
+    return 0
 
 
 def ticket_num():
@@ -71,8 +73,9 @@ class Processing(View):
     template_name = "tickets/processing.html"
 
     def post(self, request, *args, **kwargs):
-        delete_from_tickets()
-        return render(request, self.template_name, {'tickets': tickets, 'title': 'Processing request'})
+        global last
+        last = delete_from_tickets()
+        return redirect("/next")
 
 
     def get(self, request, *args, **kwargs):
@@ -84,5 +87,6 @@ class Next(View):
 
 
     def get(self, request, *args, **kwargs):
-        queue = oil_queue + tires_queue + diagnostic_queue
-        return render(request, self.template_name, {'queue': queue, 'title': 'Next client'})
+        #queue = oil_queue + tires_queue + diagnostic_queue
+
+        return render(request, self.template_name, {'last': last, 'title': 'Next client'})

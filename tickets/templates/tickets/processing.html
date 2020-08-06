@@ -10,7 +10,7 @@
 <div>Inflate tires queue: {{ tickets.inflate_tires | length  }}</div>
 <div>Get diagnostic queue: {{ tickets.diagnostic | length  }}</div>
 
-<form method="post">{% csrf_token %}
+<form method="post" action="/processing/">{% csrf_token %}
   <button type="submit">Process next</button>
 </form>
 

@@ -23,7 +23,7 @@ urlpatterns = [
     path('get_ticket/change_oil/', OilChange.as_view()),
     path('get_ticket/inflate_tires/', InflateTires.as_view()),
     path('get_ticket/diagnostic/', Diagnostic.as_view()),
-    path('processing/', Processing.as_view()),
+    path('processing', Processing.as_view()),
     path('next/', Next.as_view())
 
 ]
